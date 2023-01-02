@@ -1,0 +1,2 @@
+const fs = require("fs"), path = require("path");
+fs.copyFileSync(path.join(process.env.HOMEPATH, "\\Documents\\Visual Studio Code\\projects\\BetterBanners\\src\\BetterBanners.plugin.js"), path.join(process.env.APPDATA, "\\BetterDiscord\\plugins\\BetterBanners.plugin.js"));
