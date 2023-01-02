@@ -4,7 +4,7 @@
   "description": "Allows you to locally assign a banner",
   "main": "BetterBanners.plugin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy": "node scripts/copy.js"
   },
   "repository": {
     "type": "git",
