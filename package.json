@@ -1,0 +1,19 @@
+{
+  "name": "betterbanners",
+  "version": "2.3.2",
+  "description": "Allows you to locally assign a banner",
+  "main": "BetterBanners.plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bettlee/BetterBanners.git"
+  },
+  "author": "Bettlee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bettlee/BetterBanners/issues"
+  },
+  "homepage": "https://github.com/Bettlee/BetterBanners#readme"
+}
