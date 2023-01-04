@@ -1,7 +1,7 @@
 /**
  * @name BetterBanners
  * @author Bettlee
- * @description Allows you to locally assign a banner of your choosing
+ * @description Allows you to locally assign a banner
  * @version 2.3.2
  * @authorId 725079599297331200
  * @authorLink https://github.com/Bettlee
@@ -19,7 +19,7 @@ module.exports = (() => {
                 discord_id: "725079599297331200",
                 github_username: "Bettlee"
             }],
-            description: "Allows you to locally assign a banner of your choosing",
+            description: "Allows you to locally assign a banner",
             version: "2.3.2"
         }
     };
