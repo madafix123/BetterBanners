@@ -87,7 +87,7 @@ module.exports = (() => {
                 settings = { ...this.defaults, ...BdApi.Data.load(this.getName(), "settings") };
 
                 getSettingsPanel() {
-                    return SettingPanel.build(() => this.onStart(), new SettingGroup("Clientside Banner", { collapsible: false, shown: true }).append(new Switch("Clientside Banner", "Enable or disable a clientside banner", this.settings.banner.clientsideBanner, value => this.settings.banner.clientsideBanner = value), new FilePicker("File", "The direct file for the image you will be using, supported types are, PNG or GIF", async image => {
+                    return SettingPanel.build(() => this.onStart(), new SettingGroup("Clientside Banner", { collapsible: false, shown: true }).append(new Switch("Clientside Banner", "Enable or disable a clientside banner", this.settings.banner.clientsideBanner, value => this.settings.banner.clientsideBanner = value), new FilePicker("File", "The direct file for the image you will be using, supported types are, JPEG, PNG, and or GIF", async image => {
 
                         this.settings.banner.clientsideBannerURL = await new Promise(resolve => {
 
