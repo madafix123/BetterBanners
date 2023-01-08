@@ -81,7 +81,8 @@ module.exports = (() => {
                     banner: {
                         clientsideBanner: false,
                         clientsideBannerURL: "",
-                    }
+                    },
+                    clientsideGuildBanner: false
                 };
 
                 settings = { ...this.defaults, ...BdApi.Data.load(this.getName(), "settings") };
@@ -95,7 +96,7 @@ module.exports = (() => {
                             reader.onload = () => resolve(reader.result);
                             reader.readAsDataURL(image);
                         });
-                    }, { accept: "image/jpeg, image/png, image/gif", multiple: false })));
+                    }, { accept: "image/jpeg, image/png, image/gif", multiple: false })), new SettingGroup("Clientside Guild Banner", { collapsible: false, shown: false }).append(new Switch("Clientside Guild Banner", "Enable or disable a clientside guild banner", this.settings.banner.clientsideGuildBanner, value => this.settings.banner.clientsideGuildBanner = value, { disabled: true })));
                 };
 
                 observer({ addedNodes }) {
@@ -107,7 +108,7 @@ module.exports = (() => {
                             const banners = node?.querySelector?.(`div[class *= "${banner}-"]`), attribute = {
                                 attribute: "style",
                                 value: {
-                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${banners?.className?.includes(array[0]) && "212px" || (banners?.className?.includes(array[1]) || banners?.className?.includes(array[3])) && "120px"}`
+                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${(banners?.className?.includes(array[0]) && "212px") || (banners?.className?.includes(array[1]) || (banners?.className?.includes(array[3])) && "120px")}`
                                 }
                             };
 
@@ -116,8 +117,8 @@ module.exports = (() => {
                                 banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${BdApi.Webpack.getModule(BdApi.Webpack.Filters.byStrings("e>>", `"#".concat`), { searchExports: true })(BdApi.Webpack.getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().id).accentColor)}`);
 
                                 const profileBanner = banners?.className?.includes(array[0]), popoutBanner = banners?.className?.includes(array[1]), bannerNormal = banners?.className?.includes(array[3]);
-                                node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"]`)?.setAttribute("viewBox", profileBanner ? (this.settings.banner.clientsideBanner ? "0 0 600 212" : "0 0 600 106") : popoutBanner || bannerNormal ? (this.settings.banner.clientsideBanner ? "0 0 340 120" : "0 0 340 60") : "");
-                                node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"] circle`)?.setAttribute("cy", profileBanner ? (this.settings.banner.clientsideBanner ? "207" : "101") : popoutBanner || bannerNormal ? (this.settings.banner.clientsideBanner ? "116" : "56") : "");
+                                node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"]`)?.setAttribute("viewBox", profileBanner ? (this.settings.banner.clientsideBanner ? "0 0 600 212" : "0 0 600 106") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "0 0 340 120" : "0 0 340 60") : "0 0 660 100");
+                                node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"] circle`)?.setAttribute("cy", profileBanner ? (this.settings.banner.clientsideBanner ? "207" : "101") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "116" : "56") : "122");
                             }
                         });
 
