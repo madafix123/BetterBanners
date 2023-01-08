@@ -2,7 +2,7 @@
  * @name BetterBanners
  * @author Bettlee
  * @description Allows you to locally assign a banner
- * @version 2.3.2
+ * @version 2.3.5
  * @authorId 725079599297331200
  * @authorLink https://github.com/Bettlee
  * @source https://github.com/Bettlee/BetterBanners/blob/main/src/BetterBanners.plugin.js
@@ -20,7 +20,7 @@ module.exports = (() => {
                 github_username: "Bettlee"
             }],
             description: "Allows you to locally assign a banner",
-            version: "2.3.2"
+            version: "2.3.5"
         }
     };
     return !global.ZeresPluginLibrary ? class {
