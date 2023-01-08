@@ -108,7 +108,7 @@ module.exports = (() => {
                             const banners = node?.querySelector?.(`div[class *= "${banner}-"]`), attribute = {
                                 attribute: "style",
                                 value: {
-                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${(banners?.className?.includes(array[0]) && "212px") || banners?.className?.includes(array[1]) || (banners?.className?.includes(array[3]) && "120px")}`
+                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${((banners?.className?.includes(array[0]) && "212px") || (banners?.className?.includes(array[1]) || banners?.className?.includes(array[3])) && "120px")}`
                                 }
                             };
 
