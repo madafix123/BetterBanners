@@ -75,11 +75,6 @@ module.exports = (() => {
         const plugin = (Plugin, Api) => {
 
             const { Settings: { SettingPanel, SettingGroup, Switch, FilePicker }} = Api;
-            const { Data: { load, save }, Webpack: { getModule, Filters: { byStrings }}} = BdApi;
-
-            const { username } = getModule(m => m.username);
-            const { getCurrentUser } = getModule(m => m.getCurrentUser);
-
             return class BetterBanners extends Plugin {
 
                 defaults = {
@@ -90,7 +85,7 @@ module.exports = (() => {
                     clientsideGuildBanner: false
                 };
 
-                settings = { ...this.defaults, ...load(this.getName(), "settings") };
+                settings = { ...this.defaults, ...BdApi.Data.load(this.getName(), "settings") };
 
                 getSettingsPanel() {
                     return SettingPanel.build(() => this.onStart(), new SettingGroup("Clientside Banner", { collapsible: false, shown: true }).append(new Switch("Clientside Banner", "Enable or disable a clientside banner", this.settings.banner.clientsideBanner, value => this.settings.banner.clientsideBanner = value), new FilePicker("File", "The direct file for the image you will be using, supported types are, JPEG, PNG, and or GIF", async image => {
@@ -108,20 +103,20 @@ module.exports = (() => {
 
                     addedNodes.forEach(node => {
 
-                        ["profileBanner", "popoutBanner", "settingsBanner", "bannerNormal"].forEach((banner, _, array) => {
+                        ["profileBanner", "popoutBanner", "settingsBanner", "bannerNormal"].forEach(banner => {
 
                             const banners = node?.querySelector?.(`div[class *= "${banner}-"]`), attribute = {
                                 attribute: "style",
                                 value: {
-                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${banners?.className?.includes(array[0]) && "212px" || banners?.className?.includes(array[1]) && "120px" || banners?.className?.includes(array[3]) && "120px"}`
+                                    [banner]: `background-image: url("${this.settings.banner.clientsideBannerURL}"); background-repeat: no-repeat; background-position: 50%; background-size: cover; width: 100%; height: ${banners?.className?.includes("profileBanner") && "212px" || banners?.className?.includes("popoutBanner") && "120px" || banners?.className?.includes("bannerNormal") && "120px"}`
                                 }
                             };
 
-                            if (banners?.className?.includes(banner) && (node?.querySelector?.(`.${username}`).textContent === getCurrentUser().username)) {
+                            if (banners?.className?.includes(banner) && (node?.querySelector?.(`.${BdApi.Webpack.getModule(m => m.username).username}`).textContent === BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().username)) {
 
-                                banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${getModule(byStrings("e>>", `"#".concat`), { searchExports: true })(getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(getCurrentUser().id).accentColor)}`);
+                                banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${BdApi.Webpack.getModule(BdApi.Webpack.Filters.byStrings("e>>", `"#".concat`), { searchExports: true })(BdApi.Webpack.getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().id).accentColor)}`);
 
-                                const profileBanner = banners?.className?.includes(array[0]), popoutBanner = banners?.className?.includes(array[1]), bannerNormal = banners?.className?.includes(array[3]);
+                                const profileBanner = banners?.className?.includes("profileBanner"), popoutBanner = banners?.className?.includes("popoutBanner"), bannerNormal = banners?.className?.includes("bannerNormal");
                                 node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"]`)?.setAttribute("viewBox", profileBanner ? (this.settings.banner.clientsideBanner ? "0 0 600 212" : "0 0 600 106") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "0 0 340 120" : "0 0 340 60") : "0 0 660 100");
                                 node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"] circle`)?.setAttribute("cy", profileBanner ? (this.settings.banner.clientsideBanner ? "207" : "101") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "116" : "56") : "122");
                             }
@@ -136,7 +131,7 @@ module.exports = (() => {
                                 }
                             };
 
-                            if (avatars?.className?.includes(avatar) && (node?.querySelector?.(`.${username}`).textContent === getCurrentUser().username)) {
+                            if (avatars?.className?.includes(avatar) && (node?.querySelector?.(`.${BdApi.Webpack.getModule(m => m.username).username}`).textContent === BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().username)) {
 
                                 avatars?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[avatar] : "top: none");
                             }
@@ -146,7 +141,7 @@ module.exports = (() => {
 
                 onStart() {
 
-                    save(this.getName(), "settings", this.settings);
+                    BdApi.Data.save(this.getName(), "settings", this.settings);
                 };
 
                 onStop() {
