@@ -75,7 +75,7 @@ module.exports = (() => {
         const plugin = (Plugin, Api) => {
 
             const { Settings: { SettingPanel, SettingGroup, Switch, FilePicker }} = Api;
-            const { Webpack: { getModule, Filters: { byStrings }}} = BdApi;
+            const { Data: { load, save }, Webpack: { getModule, Filters: { byStrings }}} = BdApi;
 
             const { username } = getModule(m => m.username);
             const { getCurrentUser } = getModule(m => m.getCurrentUser);
@@ -90,7 +90,7 @@ module.exports = (() => {
                     clientsideGuildBanner: false
                 };
 
-                settings = { ...this.defaults, ...BdApi.Data.load(this.getName(), "settings") };
+                settings = { ...this.defaults, ...load(this.getName(), "settings") };
 
                 getSettingsPanel() {
                     return SettingPanel.build(() => this.onStart(), new SettingGroup("Clientside Banner", { collapsible: false, shown: true }).append(new Switch("Clientside Banner", "Enable or disable a clientside banner", this.settings.banner.clientsideBanner, value => this.settings.banner.clientsideBanner = value), new FilePicker("File", "The direct file for the image you will be using, supported types are, JPEG, PNG, and or GIF", async image => {
@@ -146,7 +146,7 @@ module.exports = (() => {
 
                 onStart() {
 
-                    BdApi.Data.save(this.getName(), "settings", this.settings);
+                    save(this.getName(), "settings", this.settings);
                 };
 
                 onStop() {
