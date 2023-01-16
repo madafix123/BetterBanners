@@ -74,11 +74,7 @@ module.exports = (() => {
 
         const plugin = (Plugin, Api) => {
 
-            const { Settings: { SettingPanel, SettingGroup, Switch, FilePicker } } = Api;
-
-            const { username } = BdApi.Webpack.getModule(m => m.username);
-            const { getCurrentUser } = BdApi.Webpack.getModule(m => m.getCurrentUser);
-
+            const { Settings: { SettingPanel, SettingGroup, Switch, FilePicker }} = Api;
             return class BetterBanners extends Plugin {
 
                 defaults = {
@@ -115,7 +111,7 @@ module.exports = (() => {
                                 }
                             };
 
-                            if (banners?.className?.includes(banner) && (node?.querySelector?.(`.${username}`).textContent === getCurrentUser().username)) {
+                            if (banners?.className?.includes(banner) && (node?.querySelector?.(`.${BdApi.Webpack.getModule(m => m.username).username}`).textContent === BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().username)) {
 
                                 banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${BdApi.Webpack.getModule(BdApi.Webpack.Filters.byStrings("e>>", `"#".concat`), { searchExports: true })(BdApi.Webpack.getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(getCurrentUser().id).accentColor)}`);
 
@@ -133,7 +129,7 @@ module.exports = (() => {
                                 }
                             };
 
-                            if (avatars?.className?.includes(avatar) && (node?.querySelector?.(`.${username}`).textContent === getCurrentUser().username)) {
+                            if (avatars?.className?.includes(avatar) && (node?.querySelector?.(`.${BdApi.Webpack.getModule(m => m.username).username}`).textContent === BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().username)) {
 
                                 avatars?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[avatar] : "top: none");
                             }
