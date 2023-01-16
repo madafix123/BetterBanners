@@ -113,7 +113,7 @@ module.exports = (() => {
 
                             if (banners?.className?.includes(banner) && (node?.querySelector?.(`.${BdApi.Webpack.getModule(m => m.username).username}`).textContent === BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().username)) {
 
-                                banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${BdApi.Webpack.getModule(BdApi.Webpack.Filters.byStrings("e>>", `"#".concat`), { searchExports: true })(BdApi.Webpack.getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(getCurrentUser().id).accentColor)}`);
+                                banners?.setAttribute(attribute.attribute, this.settings.banner.clientsideBanner ? attribute.value[banner] : `background-color: ${BdApi.Webpack.getModule(BdApi.Webpack.Filters.byStrings("e>>", `"#".concat`), { searchExports: true })(BdApi.Webpack.getModule(m => m.getName?.() === "UserProfileStore").getUserProfile(BdApi.Webpack.getModule(m => m.getCurrentUser).getCurrentUser().id).accentColor)}`);
 
                                 node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"]`)?.setAttribute("viewBox", profileBanner ? (this.settings.banner.clientsideBanner ? "0 0 600 212" : "0 0 600 106") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "0 0 340 120" : "0 0 340 60") : "0 0 660 100");
                                 node?.querySelector?.(`svg[class *= "bannerSVGWrapper-"] circle`)?.setAttribute("cy", profileBanner ? (this.settings.banner.clientsideBanner ? "207" : "101") : (popoutBanner || bannerNormal) ? (this.settings.banner.clientsideBanner ? "116" : "56") : "122");
