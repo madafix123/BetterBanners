@@ -34,21 +34,9 @@ module.exports = (() => {
             return config.info.name;
         };
 
-        getAuthor() {
-            return config.info.authors.map(m => m.name);
-        };
-
-        getVersion() {
-            return config.info.version;
-        };
-
-        getDescription() {
-            return config.info.description;
-        };
-
         load() {
 
-            BdApi.showConfirmationModal("Library Missing", `The library needed for ${config.info.name} is missing`, {
+            BdApi.showConfirmationModal("Library Missing", `The library needed for ${this.getName()} is missing`, {
 
                 confirmText: "Download",
                 cancelText: "Cancel",
@@ -80,7 +68,7 @@ module.exports = (() => {
                 defaults = {
                     banner: {
                         clientsideBanner: false,
-                        clientsideBannerURL: "",
+                        clientsideBannerURL: ""
                     }
                 };
 
